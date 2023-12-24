@@ -3,8 +3,9 @@
 
 #include <Windows.h>
 
-void fatal(const std::string& err, int exit_code=-1) {
+void fatal(const std::string& err) {
     MessageBoxA(nullptr, err.c_str(), "SilentExecute", MB_OK);
+    std::exit(-1);
 }
 
 void run_process(const std::string& args) {
@@ -17,7 +18,7 @@ void run_process(const std::string& args) {
     si.hStdError = nullptr;
     si.wShowWindow = SW_HIDE;
     si.dwFlags = STARTF_USESTDHANDLES|STARTF_USESHOWWINDOW;
-    
+
     bool is_created = CreateProcessA(
         nullptr, const_cast<char*>(args.c_str()),
         nullptr, nullptr, false, CREATE_NO_WINDOW, nullptr, nullptr, &si, &pi
@@ -34,8 +35,8 @@ void run_process(const std::string& args) {
     GetExitCodeProcess(pi.hProcess, &exit);
     if (exit != 0) {
         std::stringstream ss;
-        ss << "process \"" << args      << "\" exited with status code " << exit;
-        fatal(ss.str().c_str(), exit);
+        ss << "process \"" << args << "\" exited with status code " << exit;
+        fatal(ss.str().c_str());
     }
 
     CloseHandle(pi.hProcess);

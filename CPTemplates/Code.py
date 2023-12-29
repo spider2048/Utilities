@@ -46,14 +46,15 @@ def local__entry():
 
     def start_process():
         nonlocal process
+        with open(__file__) as fd:
+            pyperclip.copy(fd.read())
+
         process = multiprocessing.Process(target=local_main)
         process.start()
 
     def stop_process():
         if process:
             process.terminate()
-            with open(__file__) as fd:
-                pyperclip.copy(fd.read())
 
     class event_handler(FileSystemEventHandler):
         def on_modified(self, event):

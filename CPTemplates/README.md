@@ -6,7 +6,7 @@
 
 A collection of templates for use in competitive programming (CP).
 
-## Usage | Code
+## Usage | Code.py
 
 Totally compatible with every text editor.
 Totally cross-platform.
@@ -46,3 +46,10 @@ $ ForceControlC python Code.py
 ```
 
 Now, `Ctrl+C` will terminate the program.
+
+## Misc
+
+> MULTIPLE_TESTS = True/False
+
+This variable tries to avoid an outer loop in the `main()` function.
+You will need to set this variable if problems give multiple test cases in one run.

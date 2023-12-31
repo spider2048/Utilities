@@ -1,7 +1,5 @@
 # CP Templates
 
-> Licensed under GNU GPL v3
-
 > Sp1d3R | 2023-2024
 
 A collection of templates for use in competitive programming (CP).
@@ -13,25 +11,25 @@ Totally cross-platform.
 
 First, get the requirements:
 
-```
+```bash
 pip install watchdog pyperclip
 ```
 
 Next, set the environment variable `LOCAL` to a non-null value.
 
-```
+```bash
 > $env:LOCAL = $true # powershell
 $ export LOCAL=1     # bash
 ```
 
-Copy `Code.py` to your directory.
+Copy `Code.py`, `local.so` to your directory.
 Make a new file `input.txt` - this will be the `stdin` for your program (to pass testcases).
 
 
 Run the script - **before** writing any code:
 
-```
-$ python Code.py
+```bash
+python Code.py
 ```
 
 Now, you may notice, the file runs automatically whenever the code is saved and copies the file contents to the clipboard.
@@ -42,7 +40,7 @@ On windows, the program doesn't respond to `Ctrl+C`.
 To make it work, use my other utility: [ForceControlC](https://github.com/spider2048/Utilities/tree/main/ForceControlC).
 
 ```bash
-$ ForceControlC python Code.py
+ForceControlC python Code.py
 ```
 
 Now, `Ctrl+C` will terminate the program.

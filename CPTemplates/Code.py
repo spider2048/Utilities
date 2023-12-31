@@ -13,7 +13,7 @@ def inp():
 
 
 def solve():
-    print("2 + 2 = 4")
+    print(f"3 + 3 = {3 + 3}")
 
 
 def main():
@@ -24,60 +24,9 @@ def main():
         solve()
 
 
-def local_main():
-    sys.stdin = open("input.txt")
-    main()
-
-
-def local__entry():
-    import logging
-    import multiprocessing
-    import pyperclip
-    from watchdog.observers import Observer
-    from watchdog.events import FileSystemEventHandler
-    
-    # (fix) linux to reload solve()
-    if sys.platform != 'win32':
-        multiprocessing.set_start_method('spawn')
-    
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-    
-    logger = logging.getLogger("AutoReload")
-    process = None
-
-    def start_process():
-        nonlocal process
-        with open(__file__) as fd:
-            pyperclip.copy(fd.read())
-
-        process = multiprocessing.Process(target=local_main)
-        process.start()
-
-    def stop_process():
-        if process:
-            process.terminate()
-
-    class event_handler(FileSystemEventHandler):
-        def on_modified(self, event):
-            stop_process()
-            logger.info("Changed: %s", event.src_path)
-            start_process()
-
-    dir_name = os.path.dirname(__file__)
-
-    start_process()
-    observer = Observer()
-    observer.schedule(event_handler(), dir_name)
-    observer.start()
-    observer.join()
-
-
 if __name__ == "__main__":
     if os.environ.get("LOCAL"):
-        local__entry()
+        from local import *
+        local__entry(main, __file__)
     else:
         main()

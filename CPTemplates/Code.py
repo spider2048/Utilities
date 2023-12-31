@@ -35,12 +35,17 @@ def local__entry():
     import pyperclip
     from watchdog.observers import Observer
     from watchdog.events import FileSystemEventHandler
-
+    
+    # (fix) linux to reload solve()
+    if sys.platform != 'win32':
+        multiprocessing.set_start_method('spawn')
+    
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
+    
     logger = logging.getLogger("AutoReload")
     process = None
 

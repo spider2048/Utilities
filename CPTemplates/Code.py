@@ -26,7 +26,6 @@ def main():
 
 if __name__ == "__main__":
     if os.environ.get("LOCAL"):
-        from local import *
-        local__entry(main, __file__)
+        __import__('local').local__entry(main, __file__) # type: ignore
     else:
         main()

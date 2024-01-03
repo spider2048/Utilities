@@ -22,9 +22,10 @@ Next, set the environment variable `LOCAL` to a non-null value.
 $ export LOCAL=1     # bash
 ```
 
-Copy `Code.py`, `local.so` to your directory.
+Copy `Code.py`, `local.so` (or `local.pyd` for windows) to your directory.
 Make a new file `input.txt` - this will be the `stdin` for your program (to pass testcases).
 
+The pre-built libraries are for a little speed boost to your program.
 
 Run the script - **before** writing any code:
 
@@ -44,6 +45,34 @@ ForceControlC python Code.py
 ```
 
 Now, `Ctrl+C` will terminate the program.
+
+## Building libraries
+
+The files `build/local.py` (or `build_windows/local.py` for Windows) were built using Makefiles or Meson.
+
+You would need a C/C++ compiler to build them on your side.
+
+**I do not guarantee the pre-built files to work on your PC**
+
+#### Linux
+
+To build `local.so` for Linux:
+
+```bash
+cd build
+make
+```
+
+#### Windows
+
+To build `local.pyd` for Windows:
+
+```bash
+cd build_windows
+cython local.py -3 -o local.c
+meson setup build --buildtype release
+ninja -C build
+```
 
 ## Misc
 
